@@ -20,3 +20,12 @@ void ajout_tch();
 void affiche_tch();
 void modif_tch();
 void suppr_tch();
+
+
+//fonction main
+int main(){
+
+
+
+    return 0;
+}
