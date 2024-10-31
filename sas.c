@@ -20,6 +20,7 @@ void ajout_tch();
 void affiche_tch();
 void modif_tch();
 void suppr_tch();
+void filtre_p();
 
 
 //fonction main
@@ -32,8 +33,7 @@ int main(){
         printf("2. Afficher toutes les taches\n");
         printf("3. Modifier une tache\n");
         printf("4. Supprimer une tache\n");
-        printf("5. Filtrer par propriete\n");
-        printf("6. Quitter\n");
+        printf("5. Quitter\n");
         printf("Votre choix : ");
         scanf("%d", &choix);
 
@@ -41,7 +41,9 @@ int main(){
             case 1:
                 ajout_tch();
                 break;
-
+            case 2:
+                affiche_tch();
+                break;    
             case 5:
                 printf("Quitte.\n");
                 break;
@@ -54,7 +56,7 @@ int main(){
     return 0;
 }
 
-//fonction d'ajoute
+//fonction d'ajouter les taches
 void ajout_tch() {
     if (n_tch >= MAX_TACHES) {
         printf("La liste des taches est pleine.\n");
@@ -80,6 +82,20 @@ void ajout_tch() {
     taches[n_tch++] = t;
     printf("Tache ajoutee avec succes.\n");
 }
+void affiche_tch() {
+    if (n_tch == 0) {
+        printf("Pas de taches.\n");
+        return;
+    }
 
+    for (int i = 0; i < n_tch; i++) {
+        printf("Tache %d :\n", i + 1);
+        printf("Titre : %s\n", taches[i].titre);
+        printf("Description : %s\n", taches[i].desc);
+        printf("Date d'echeance : %s\n", taches[i].date);
+        printf("Priorite : %s\n", taches[i].prio);
+        printf("Statut : %s\n", taches[i].statut);
+    }
+}
 
 
