@@ -4,10 +4,16 @@
 
 #define MAX_TACHES 100
 
+struct Date {
+    int jour;
+    int mois;
+    int annee;
+};
+
 struct Tache {
     char titre[50];
     char desc[100];
-    char date[11];
+    struct Date date;
     char prio[5];
     char statut[10];
 };
@@ -15,17 +21,15 @@ struct Tache {
 struct Tache taches[MAX_TACHES];
 int n_tch = 0;
 
-
 void ajout_tch();
 void affiche_tch();
 void modif_tch();
 void suppr_tch();
 void filtre_p();
+void Vdate(struct Tache *t);
 
-
-//fonction main
-int main(){
- int choix;
+int main() {
+    int choix;
 
     do {
         printf("\n--- Menu des taches ---\n");
@@ -34,6 +38,7 @@ int main(){
         printf("3. Modifier une tache\n");
         printf("4. Supprimer une tache\n");
         printf("5. Quitter\n");
+        printf("6. Filtrer les taches par priorite\n");
         printf("Votre choix : ");
         scanf("%d", &choix);
 
@@ -43,7 +48,7 @@ int main(){
                 break;
             case 2:
                 affiche_tch();
-                break;    
+                break;
             case 5:
                 printf("Quitte.\n");
                 break;
@@ -52,11 +57,27 @@ int main(){
         }
     } while (choix != 5);
 
-
     return 0;
 }
 
-//fonction d'ajouter les taches
+
+void Vdate(struct Tache *t) {
+    do {
+        printf("Entrer la date :\n");
+        printf("Jour (entre 1 et 31): ");
+        scanf("%d", &t->date.jour);
+    } while (t->date.jour > 31);
+
+    do {
+        printf("Mois (entre 1 et 12): ");
+        scanf("%d", &t->date.mois);
+    } while (t->date.mois > 12);
+
+    do {
+        printf("Annee (2024 ou grande annee): ");
+        scanf("%d", &t->date.annee);
+    } while (t->date.annee < 2024);
+}
 void ajout_tch() {
     if (n_tch >= MAX_TACHES) {
         printf("La liste des taches est pleine.\n");
@@ -69,9 +90,8 @@ void ajout_tch() {
 
     printf("Description : ");
     scanf(" %[^\n]s", t.desc);
-
-    printf("Date d'echeance (JJ-MM-AAAA) : ");
-    scanf(" %[^\n]s", t.date);
+ // Vdate fonction pour verifier la date
+    Vdate(&t);
 
     printf("Priorite (High/Low) : ");
     scanf(" %[^\n]s", t.prio);
@@ -82,6 +102,7 @@ void ajout_tch() {
     taches[n_tch++] = t;
     printf("Tache ajoutee avec succes.\n");
 }
+
 void affiche_tch() {
     if (n_tch == 0) {
         printf("Pas de taches.\n");
@@ -92,10 +113,8 @@ void affiche_tch() {
         printf("Tache %d :\n", i + 1);
         printf("Titre : %s\n", taches[i].titre);
         printf("Description : %s\n", taches[i].desc);
-        printf("Date d'echeance : %s\n", taches[i].date);
+        printf("Date : %02d-%02d-%04d\n", taches[i].date.jour, taches[i].date.mois, taches[i].date.annee); //Date: DD-MM-YYYY
         printf("Priorite : %s\n", taches[i].prio);
         printf("Statut : %s\n", taches[i].statut);
     }
 }
-
-
