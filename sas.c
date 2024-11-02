@@ -15,7 +15,6 @@ struct Tache {
     char desc[100];
     struct Date date;
     char prio[5];
-    char statut[10];
 };
 
 struct Tache taches[MAX_TACHES];
@@ -96,9 +95,6 @@ void ajout_tch() {
     printf("Priorite (High/Low) : ");
     scanf(" %[^\n]s", t.prio);
 
-    printf("Statut (Complete/Incomplete) : ");
-    scanf(" %[^\n]s", t.statut);
-
     taches[n_tch++] = t;
     printf("Tache ajoutee avec succes.\n");
 }
@@ -115,6 +111,5 @@ void affiche_tch() {
         printf("Description : %s\n", taches[i].desc);
         printf("Date : %02d-%02d-%04d\n", taches[i].date.jour, taches[i].date.mois, taches[i].date.annee); //Date: DD-MM-YYYY
         printf("Priorite : %s\n", taches[i].prio);
-        printf("Statut : %s\n", taches[i].statut);
     }
 }
