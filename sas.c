@@ -14,7 +14,7 @@ struct Tache {
     char titre[50];
     char desc[100];
     struct Date date;
-    char prio[5];
+    int prio; // High = 1 / Low = 0
 };
 
 struct Tache taches[MAX_TACHES];
@@ -26,6 +26,7 @@ void modif_tch();
 void suppr_tch();
 void filtre_p();
 void Vdate(struct Tache *t);
+void Vprio(struct Tache *t);
 
 int main() {
     int choix;
@@ -59,24 +60,31 @@ int main() {
     return 0;
 }
 
-
 void Vdate(struct Tache *t) {
     do {
         printf("Entrer la date :\n");
         printf("Jour (entre 1 et 31): ");
         scanf("%d", &t->date.jour);
-    } while (t->date.jour > 31);
+    } while (t->date.jour < 1 || t->date.jour > 31);
 
     do {
         printf("Mois (entre 1 et 12): ");
         scanf("%d", &t->date.mois);
-    } while (t->date.mois > 12);
+    } while (t->date.mois < 1 || t->date.mois > 12);
 
     do {
         printf("Annee (2024 ou grande annee): ");
         scanf("%d", &t->date.annee);
     } while (t->date.annee < 2024);
 }
+
+void Vprio(struct Tache *t) {
+    do {
+        printf("Priorite (High = 1 / Low = 0) : ");
+        scanf("%d", &t->prio);
+    } while (t->prio != 0 && t->prio != 1);
+}
+
 void ajout_tch() {
     if (n_tch >= MAX_TACHES) {
         printf("La liste des taches est pleine.\n");
@@ -89,11 +97,12 @@ void ajout_tch() {
 
     printf("Description : ");
     scanf(" %[^\n]s", t.desc);
- // Vdate fonction pour verifier la date
+
+    // Fonction pour verifier la date
     Vdate(&t);
 
-    printf("Priorite (High/Low) : ");
-    scanf(" %[^\n]s", t.prio);
+    // Fonction pour priorite
+    Vprio(&t);
 
     taches[n_tch++] = t;
     printf("Tache ajoutee avec succes.\n");
@@ -110,6 +119,6 @@ void affiche_tch() {
         printf("Titre : %s\n", taches[i].titre);
         printf("Description : %s\n", taches[i].desc);
         printf("Date : %02d-%02d-%04d\n", taches[i].date.jour, taches[i].date.mois, taches[i].date.annee); //Date: DD-MM-YYYY
-        printf("Priorite : %s\n", taches[i].prio);
+        printf("Priorite : %s\n", (taches[i].prio == 1) ? "High" : "Low");
     }
 }
