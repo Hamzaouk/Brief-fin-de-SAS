@@ -49,6 +49,9 @@ int main() {
             case 2:
                 affiche_tch();
                 break;
+            case 4:
+                suppr_tch();
+                break;
             case 5:
                 printf("Quitte.\n");
                 break;
@@ -121,4 +124,22 @@ void affiche_tch() {
         printf("Date : %02d-%02d-%04d\n", taches[i].date.jour, taches[i].date.mois, taches[i].date.annee); //Date: DD-MM-YYYY
         printf("Priorite : %s\n", (taches[i].prio == 1) ? "High" : "Low");
     }
+}
+
+void suppr_tch() {
+    int index;
+    printf("Tache a supprimer (index) : ");
+    scanf("%d", &index);
+
+    if (index < 1 || index > n_tch) {
+        printf("Index invalide.\n");
+        return;
+    }
+
+    index--; // la base 0
+    for (int i = index; i < n_tch - 1; i++) {
+        taches[i] = taches[i + 1];
+    }
+    n_tch--; // Réduire la tâches
+    printf("Tache supprimee.\n");
 }
