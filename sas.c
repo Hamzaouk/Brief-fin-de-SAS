@@ -14,7 +14,7 @@ struct Tache {
     char titre[50];
     char desc[100];
     struct Date date;
-    int prio; // High = 1 / Low = 0
+    int prio; // 0 for Low, 1 for High
 };
 
 struct Tache taches[MAX_TACHES];
@@ -25,8 +25,8 @@ void affiche_tch();
 void modif_tch();
 void suppr_tch();
 void filtre_p();
-void Vdate(struct Tache *t);
-void Vprio(struct Tache *t);
+void Vdate(struct Tache *d);
+void Vprio(struct Tache *p);
 
 int main() {
     int choix;
@@ -49,9 +49,6 @@ int main() {
             case 2:
                 affiche_tch();
                 break;
-            case 4:
-                suppr_tch();
-                break;
             case 5:
                 printf("Quitte.\n");
                 break;
@@ -63,29 +60,29 @@ int main() {
     return 0;
 }
 
-void Vdate(struct Tache *t) {
+void Vdate(struct Tache *d) {
     do {
         printf("Entrer la date :\n");
         printf("Jour (entre 1 et 31): ");
-        scanf("%d", &t->date.jour);
-    } while (t->date.jour < 1 || t->date.jour > 31);
+        scanf("%d", &d->date.jour);
+    } while (d->date.jour < 1 || d->date.jour > 31);
 
     do {
         printf("Mois (entre 1 et 12): ");
-        scanf("%d", &t->date.mois);
-    } while (t->date.mois < 1 || t->date.mois > 12);
+        scanf("%d", &d->date.mois);
+    } while (d->date.mois < 1 || d->date.mois > 12);
 
     do {
         printf("Annee (2024 ou grande annee): ");
-        scanf("%d", &t->date.annee);
-    } while (t->date.annee < 2024);
+        scanf("%d", &d->date.annee);
+    } while (d->date.annee < 2024);
 }
 
-void Vprio(struct Tache *t) {
+void Vprio(struct Tache *p) {
     do {
         printf("Priorite (High = 1 / Low = 0) : ");
-        scanf("%d", &t->prio);
-    } while (t->prio != 0 && t->prio != 1);
+        scanf("%d", &p->prio);
+    } while (p->prio != 0 && p->prio != 1);
 }
 
 void ajout_tch() {
@@ -121,11 +118,10 @@ void affiche_tch() {
         printf("Tache %d :\n", i + 1);
         printf("Titre : %s\n", taches[i].titre);
         printf("Description : %s\n", taches[i].desc);
-        printf("Date : %02d-%02d-%04d\n", taches[i].date.jour, taches[i].date.mois, taches[i].date.annee); //Date: DD-MM-YYYY
+        printf("Date : %02d-%02d-%04d\n", taches[i].date.jour, taches[i].date.mois, taches[i].date.annee);
         printf("Priorite : %s\n", (taches[i].prio == 1) ? "High" : "Low");
     }
 }
-
 void suppr_tch() {
     int index;
     printf("Tache a supprimer (index) : ");
