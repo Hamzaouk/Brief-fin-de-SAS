@@ -149,10 +149,10 @@ void suppr_tch() {
         return;
     }
 
-    index--; // la base 0
+    index=index-1; // la base 0
     for (int i = index; i < n_tch - 1; i++) {
         taches[i] = taches[i + 1];
     }
-    n_tch--; // Réduire la tâches
-    printf("Tache supprimee.\n");
+    n_tch=n_tch-1; // Réduire la tâches
+    printf("Tache est supprimee.\n");
 }
