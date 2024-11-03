@@ -51,6 +51,9 @@ int main() {
             case 2:
                 affiche_tch();
                 break;
+            case 3:
+               modif_tch();
+                break;
             case 4:
                 suppr_tch();
                 break;
@@ -138,6 +141,49 @@ void affiche_tch() {
         printf("Statut : %s\n", (taches[i].statut == 1) ? "Incomplete" : "Complete");
     }
 }
+
+void modif_tch() {
+    int index;
+    printf("Tache a modifier (index) : ");
+    scanf("%d", &index);
+
+    if (index < 1 || index > n_tch) {
+        printf("Index invalide.\n");
+        return;
+    }
+
+    index=index-1; // la base 0
+    printf("Modification de la Tache %d :\n", index + 1);
+    //Modifier le titre
+    printf("Nouveau titre (actuel: %s) : ", taches[index].titre);
+    scanf(" %[^\n]s", taches[index].titre);
+
+    //Modifier description
+    printf("Nouvelle description (actuelle: %s) : ", taches[index].desc);
+    scanf(" %[^\n]s", taches[index].desc);
+
+    //Modifier date
+    printf("Nouveau jour (actuel est: %d) : ", taches[index].date.jour);
+    scanf("%d", &taches[index].date.jour);
+
+    printf("Nouveau mois (actuel est: %d) : ", taches[index].date.mois);
+    scanf("%d", &taches[index].date.mois);
+
+    printf("Nouvelle annee (actuelle est: %d) : ", taches[index].date.annee);
+    scanf("%d", &taches[index].date.annee);
+
+    //Modifier priorite et statut
+    printf("Nouvelle priorite (actuelle est: %d) : ", taches[index].prio);
+    scanf("%d", &taches[index].prio);
+
+    printf("Nouvelle statut (actuelle est: %d) : ", taches[index].statut);
+    scanf("%d", &taches[index].statut);
+
+
+    printf("Tache ete modifiee .\n");
+}
+
+
 
 void suppr_tch() {
     int index;
