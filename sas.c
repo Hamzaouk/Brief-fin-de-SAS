@@ -40,9 +40,9 @@ int main() {
         printf("2. Afficher toutes les taches\n");
         printf("3. Modifier une tache\n");
         printf("4. Supprimer une tache\n");
-        printf("5. Quitter\n");
-        printf("6. Filtrer les taches par priorite\n");
-        printf("7. Filtrer les taches par Statut\n");
+        printf("5. Filtrer les taches par priorite\n");
+        printf("6. Filtrer les taches par Statut\n");
+        printf("7. Quitter\n");
         printf("Votre choix : ");
         scanf("%d", &choix);
 
@@ -60,13 +60,13 @@ int main() {
                 suppr_tch();
                 break;
             case 5:
-                printf("Quitte.\n");
-                break;
-            case 6:
                filtre_p();
                 break;
-            case 7:
+            case 6:
                filtre_s();
+                break;
+            case 7:
+                printf("Quitter.\n");
                 break;
             default:
                 printf("Choix invalide.\n");
