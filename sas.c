@@ -15,7 +15,7 @@ struct Tache {
     char desc[100];
     struct Date date;
     int prio; // 0 for Low, 1 for High
-    int statut; // 0 for Incomplete, 1 for Complete
+    int statut; // 1 for Incomplete, 0 for Complete
 };
 
 struct Tache taches[MAX_TACHES];
@@ -26,6 +26,7 @@ void affiche_tch();
 void modif_tch();
 void suppr_tch();
 void filtre_p();
+void filtre_s();
 void Vdate(struct Tache *t);
 void Vprio(struct Tache *t);
 void Vstatut(struct Tache *t);
@@ -41,11 +42,12 @@ int main() {
         printf("4. Supprimer une tache\n");
         printf("5. Quitter\n");
         printf("6. Filtrer les taches par priorite\n");
+        printf("7. Filtrer les taches par Statut\n");
         printf("Votre choix : ");
         scanf("%d", &choix);
 
         switch (choix) {
-            case 1:
+           case 1:
                 ajout_tch();
                 break;
             case 2:
@@ -60,10 +62,16 @@ int main() {
             case 5:
                 printf("Quitte.\n");
                 break;
+            case 6:
+               filtre_p();
+                break;
+            case 7:
+               filtre_s();
+                break;
             default:
                 printf("Choix invalide.\n");
         }
-    } while (choix != 5);
+    } while (choix != 6);
 
     return 0;
 }
@@ -142,6 +150,10 @@ void affiche_tch() {
     }
 }
 
+
+
+
+
 void modif_tch() {
     int index;
     printf("Tache a modifier (index) : ");
@@ -184,7 +196,6 @@ void modif_tch() {
 }
 
 
-
 void suppr_tch() {
     int index;
     printf("Tache a supprimer (index) : ");
@@ -202,3 +213,44 @@ void suppr_tch() {
     n_tch=n_tch-1; // Réduire la tâches
     printf("Tache est supprimee.\n");
 }
+
+//La fonction de filtrage avec priorite
+void filtre_p() {
+    int p;
+    printf("Entrez la priorite des taches a afficher (1 pour High, 0 pour Low) : ");
+    scanf("%d", &p);
+
+    printf("\nTaches avec priorite %s :\n", p == 1 ? "High" : "Low");
+    for (int i = 0; i < n_tch; i++) {
+        if (taches[i].prio == p) {
+            printf("Titre : %s\n", taches[i].titre);
+            printf("Description : %s\n", taches[i].desc);
+            printf("Date : %02d-%02d-%04d\n", taches[i].date.jour, taches[i].date.mois, taches[i].date.annee);
+            printf("Priorite : %s\n", (taches[i].prio == 1) ? "High" : "Low");
+            printf("Statut : %s\n", (taches[i].statut == 1) ? "Incomplete" : "Complete");
+            printf("\n");
+        }
+    }
+}
+
+
+//La fonction de filtrage avec statut
+void filtre_s() {
+    int s;
+    printf("Entrez le statut des taches (1 for Incomplete, 0 for Complete) : ");
+    scanf("%d", &s);
+
+    printf("\nTaches avec statut %s :\n", s == 1 ? "Incomplete" : "Complete");
+    for (int i = 0; i < n_tch; i++) {
+        if (taches[i].statut == s) {
+            printf("Titre : %s\n", taches[i].titre);
+            printf("Description : %s\n", taches[i].desc);
+            printf("Date : %02d-%02d-%04d\n", taches[i].date.jour, taches[i].date.mois, taches[i].date.annee);
+            printf("Priorite : %s\n", (taches[i].prio == 1) ? "High" : "Low");
+            printf("Statut : %s\n", (taches[i].statut == 1) ? "Incomplete" : "Complete");
+            printf("\n");
+        }
+    }
+}
+
+
