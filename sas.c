@@ -71,7 +71,7 @@ int main() {
             default:
                 printf("Choix invalide.\n");
         }
-    } while (choix != 6);
+    } while (choix != 7);
 
     return 0;
 }
@@ -175,14 +175,33 @@ void modif_tch() {
     scanf(" %[^\n]s", taches[index].desc);
 
     //Modifier date
-    printf("Nouveau jour (actuel est: %d) : ", taches[index].date.jour);
-    scanf("%d", &taches[index].date.jour);
 
-    printf("Nouveau mois (actuel est: %d) : ", taches[index].date.mois);
-    scanf("%d", &taches[index].date.mois);
+    // jour
+     do {
+        printf("Nouveau jour (actuel: %d) : ", taches[index].date.jour);
+        scanf("%d", &taches[index].date.jour);
+        if (taches[index].date.jour < 1 || taches[index].date.jour > 31) {
+            printf("Entrer jour entre 1 et 31.\n");
+        }
+    } while (taches[index].date.jour < 1 || taches[index].date.jour > 31);
 
-    printf("Nouvelle annee (actuelle est: %d) : ", taches[index].date.annee);
-    scanf("%d", &taches[index].date.annee);
+    // mois
+    do {
+        printf("Nouveau mois (actuel: %d) : ", taches[index].date.mois);
+        scanf("%d", &taches[index].date.mois);
+        if (taches[index].date.mois < 1 || taches[index].date.mois > 12) {
+            printf("Entrer mois entre 1 et 12.\n");
+        }
+    } while (taches[index].date.mois < 1 || taches[index].date.mois > 12);
+
+    //annee
+    do {
+        printf("Nouvelle annee (actuelle: %d) : ", taches[index].date.annee);
+        scanf("%d", &taches[index].date.annee);
+        if (taches[index].date.annee < 2024) {
+            printf("Entrer une annne plus que 2024.\n");
+        }
+    } while (taches[index].date.annee < 2024);
 
     //Modifier priorite et statut
     printf("Nouvelle priorite (actuelle est: %d) : ", taches[index].prio);
@@ -194,7 +213,6 @@ void modif_tch() {
 
     printf("Tache ete modifiee .\n");
 }
-
 
 void suppr_tch() {
     int index;
